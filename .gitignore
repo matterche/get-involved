@@ -5,6 +5,7 @@ Thumbs.db
 .vscode/
 *.swp
 *.swo
+*.iml
 
 .netlify/
 node_modules/
