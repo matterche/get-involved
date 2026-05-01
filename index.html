@@ -454,11 +454,6 @@ Mit freundlichen Grüßen</textarea>
         copyText(field.value, message);
     }
 
-    function copyAll() {
-        const allText = `Empfänger: ${recipient.value}\nBetreff: ${subject.value}\n\n${body.value}`;
-        copyText(allText, 'Empfänger, Betreff und E-Mail-Text kopiert.');
-    }
-
     function showStatus(message) {
         status.textContent = message;
         window.clearTimeout(showStatus.timeout);
