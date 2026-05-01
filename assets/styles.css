@@ -71,8 +71,8 @@ h1 {
 }
 
 .actions {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    display: flex;
+    justify-content: center;
     gap: 12px;
     margin: 24px 0 8px;
 }
@@ -283,7 +283,6 @@ textarea {
         padding: 28px 0;
     }
 
-    .actions,
     .copy-row {
         grid-template-columns: 1fr;
     }
