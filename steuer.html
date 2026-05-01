@@ -322,7 +322,7 @@
 
 Diverse Quellen, darunter die ehemalige Staatsanwältin Anne Brorhilker, sprechen davon, dass Deutschland durch professionellen Steuerbetrug jährlich (!) ein Schaden von bis zu 100 Mrd. EUR entsteht. Dieser Schaden entsteht durch Cum-Ex, Cum-Cum und weitere Finanzgeschäfte. Diese enormen Summen finden jedoch in der Öffentlichkeit kaum Beachtung.
 
-                        Bitte sprechen Sie diese deutlich an!
+Bitte sprechen Sie diese deutlich an!
 
 Insbesondere scheint Deutschland weit davon entfernt, diesen illegalen Geschäften wirksam den Kampf ansagen zu können. Bitte machen Sie als Finanzminister den Kampf gegen Steuerhinterziehung zur Priorität Ihres politischen Handelns! Gerade bei international organisierten Strukturen braucht es wirksame, gut koordinierte und praxistaugliche Maßnahmen.
 
@@ -339,8 +339,7 @@ Denn Steuerhinterziehung in großem Stil ist kein Kavaliersdelikt. Sie schadet d
 Ich bitte Sie daher, die Einrichtung einer zentralen, interdisziplinären Bundesstelle gegen international organisierte Steuerhinterziehung ernsthaft zu prüfen und zeitnah auf den Weg zu bringen.
 
 
-Mit freundlichen Grüßen
-            </textarea>
+Mit freundlichen Grüßen</textarea>
             <button class="secondary" type="button" onclick="copyField('body', 'E-Mail-Text kopiert.')">Text kopieren
             </button>
         </div>
@@ -432,12 +431,9 @@ Mit freundlichen Grüßen
     const status = document.getElementById('status');
 
     function buildMailtoLink() {
-        const params = new URLSearchParams({
-            subject: subject.value,
-            body: body.value
-        });
-
-        return `mailto:${encodeURIComponent(recipient.value)}?${params.toString()}`;
+        const qs = `subject=${encodeURIComponent(subject.value)}` +
+                   `&body=${encodeURIComponent(body.value)}`;
+        return `mailto:${recipient.value}?${qs}`;
     }
 
     function updateMailButton() {
