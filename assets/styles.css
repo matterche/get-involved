@@ -209,10 +209,6 @@ textarea {
     gap: 16px;
 }
 
-.legal summary::-webkit-details-marker {
-    display: none;
-}
-
 .legal summary::after {
     content: "+";
     font-size: 1.4rem;
