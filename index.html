@@ -1,0 +1,473 @@
+<!doctype html>
+<html lang="de">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>E-Mail-Aktion</title>
+    <meta name="description" content="E-Mail senden"/>
+    <style>
+        :root {
+            --bg: #f6f7f9;
+            --card: #ffffff;
+            --text: #17202a;
+            --muted: #5f6c7b;
+            --primary: #1455d9;
+            --primary-hover: #0f43ad;
+            --border: #d9dee7;
+            --success: #157347;
+            --shadow: 0 18px 45px rgba(20, 38, 70, 0.10);
+            --radius: 18px;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            background: linear-gradient(180deg, #eef3ff 0%, var(--bg) 45%);
+            color: var(--text);
+            line-height: 1.55;
+        }
+
+        .page {
+            width: min(920px, calc(100% - 32px));
+            margin: 0 auto;
+            padding: 48px 0;
+        }
+
+        .hero {
+            text-align: center;
+            margin-bottom: 28px;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 7px 12px;
+            border: 1px solid var(--border);
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.72);
+            color: var(--muted);
+            font-size: 0.92rem;
+            margin-bottom: 18px;
+        }
+
+        h1 {
+            margin: 0 0 14px;
+            font-size: clamp(2rem, 6vw, 4rem);
+            line-height: 1.05;
+            letter-spacing: -0.045em;
+        }
+
+        .lead {
+            max-width: 720px;
+            margin: 0 auto;
+            font-size: clamp(1.05rem, 2vw, 1.25rem);
+            color: var(--muted);
+        }
+
+        .card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: clamp(22px, 4vw, 36px);
+            margin-top: 24px;
+        }
+
+        .actions {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 12px;
+            margin: 24px 0 8px;
+        }
+
+        .button,
+        button {
+            border: 0;
+            border-radius: 12px;
+            padding: 14px 16px;
+            font: inherit;
+            font-weight: 700;
+            cursor: pointer;
+            text-decoration: none;
+            text-align: center;
+            transition: transform 0.12s ease, background 0.12s ease, border-color 0.12s ease;
+        }
+
+        .button:hover,
+        button:hover {
+            transform: translateY(-1px);
+        }
+
+        .primary {
+            background: var(--primary);
+            color: #fff;
+        }
+
+        .primary:hover {
+            background: var(--primary-hover);
+        }
+
+        .secondary {
+            background: #fff;
+            color: var(--text);
+            border: 1px solid var(--border);
+        }
+
+        .secondary:hover {
+            border-color: #aeb8c8;
+        }
+
+        .section-title {
+            margin: 30px 0 10px;
+            font-size: 1.1rem;
+        }
+
+        .field {
+            display: grid;
+            gap: 8px;
+            margin-top: 16px;
+        }
+
+        label {
+            font-weight: 700;
+        }
+
+        input,
+        textarea {
+            width: 100%;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 13px 14px;
+            font: inherit;
+            color: var(--text);
+            background: #fbfcfe;
+        }
+
+        textarea {
+            min-height: 260px;
+            resize: vertical;
+        }
+
+        .copy-row {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 10px;
+            align-items: start;
+        }
+
+        .hint {
+            color: var(--muted);
+            font-size: 0.95rem;
+            margin-top: 12px;
+        }
+
+        .status {
+            min-height: 24px;
+            margin-top: 14px;
+            color: var(--success);
+            font-weight: 700;
+        }
+
+        .legal {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: clamp(22px, 4vw, 36px);
+            margin-top: 24px;
+        }
+
+        .legal details {
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            background: #fbfcfe;
+            overflow: hidden;
+        }
+
+        .legal details + details {
+            margin-top: 14px;
+        }
+
+        .legal summary {
+            padding: 16px 18px;
+            cursor: pointer;
+            font-weight: 800;
+            color: var(--text);
+            list-style: none;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+        }
+
+        .legal summary::-webkit-details-marker {
+            display: none;
+        }
+
+        .legal summary::after {
+            content: "+";
+            font-size: 1.4rem;
+            line-height: 1;
+            color: var(--primary);
+            font-weight: 800;
+        }
+
+        .legal details[open] summary {
+            border-bottom: 1px solid var(--border);
+        }
+
+        .legal details[open] summary::after {
+            content: "−";
+        }
+
+        .legal-content {
+            padding: 18px;
+        }
+
+        .legal h3 {
+            margin-top: 24px;
+            margin-bottom: 8px;
+        }
+
+        .legal h3:first-child {
+            margin-top: 0;
+        }
+
+        .legal p {
+            color: var(--muted);
+        }
+
+        .legal a {
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        .footer {
+            text-align: center;
+            color: var(--muted);
+            font-size: 0.92rem;
+            margin-top: 24px;
+        }
+
+        @media (max-width: 720px) {
+            .page {
+                width: min(100% - 22px, 920px);
+                padding: 28px 0;
+            }
+
+            .actions,
+            .copy-row {
+                grid-template-columns: 1fr;
+            }
+
+            .button,
+            button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+<main class="page">
+    <section class="hero">
+        <h1>E-Mail an den Finanzminister</h1>
+        <p class="lead">
+            Mit einem Klick öffnet sich dein E-Mail-Programm mit dem vorbereiteten Text.
+            Du kannst den Text vor dem Senden natürlich noch ändern.
+        </p>
+    </section>
+
+    <section class="card" aria-labelledby="email-action-title">
+        <h2 id="email-action-title">E-Mail vorbereiten</h2>
+        <p>
+            Klicke auf den Button, um die vorbereitete E-Mail zu öffnen. <br/>Falls das auf deinem Gerät nicht
+            funktioniert,
+            kannst du unten Empfänger, Betreff und Text manuell kopieren.
+        </p>
+
+        <div class="actions">
+            <a id="mailButton" class="button primary" href="#">Jetzt E-Mail öffnen</a>
+        </div>
+
+
+        <h3 class="section-title">Alternativ: Texte kopieren und selbst in E-Mail Programm einfügen</h3>
+
+        <div class="field">
+            <label for="recipient">Empfänger</label>
+            <div class="copy-row">
+                <input id="recipient" readonly value="poststelle@bmf.bund.de"/>
+                <button class="secondary" type="button" onclick="copyField('recipient', 'Empfänger kopiert.')">
+                    Kopieren
+                </button>
+            </div>
+        </div>
+
+        <div class="field">
+            <label for="subject">Betreff</label>
+            <div class="copy-row">
+                <input id="subject" readonly value="Wie bekämpfen Sie organisierte Steuerhinterziehung?"/>
+                <button class="secondary" type="button" onclick="copyField('subject', 'Betreff kopiert.')">Kopieren
+                </button>
+            </div>
+        </div>
+
+        <div class="field">
+            <label for="body">E-Mail-Text</label>
+            <textarea id="body" readonly>Sehr geehrter Herr Klingbeil,
+
+Diverse Quellen, darunter die ehemalige Staatsanwältin Anne Brorhilker, sprechen davon, dass Deutschland durch professionellen Steuerbetrug jährlich (!) ein Schaden von bis zu 100 Mrd. EUR entsteht. Dieser Schaden entsteht durch Cum-Ex, Cum-Cum und weitere Finanzgeschäfte. Diese enormen Summen finden jedoch in der Öffentlichkeit kaum Beachtung.
+
+Bitte sprechen Sie diese deutlich an!
+
+Insbesondere scheint Deutschland weit davon entfernt, diesen illegalen Geschäften wirksam den Kampf ansagen zu können. Bitte machen Sie als Finanzminister den Kampf gegen Steuerhinterziehung zur Priorität Ihres politischen Handelns! Gerade bei international organisierten Strukturen braucht es wirksame, gut koordinierte und praxistaugliche Maßnahmen.
+
+Ein sinnvoller nächster Schritt wäre die Einrichtung einer zentralen Stelle auf Bundesebene zur Bekämpfung international organisierter Steuerhinterziehung. Denkbar wäre ein schlankes, schlagkräftiges Ermittlungszentrum, das interdisziplinär arbeitet und Kompetenzen aus Zoll, Polizei und Steuerverwaltung bündelt.
+
+Auch die Zollgewerkschaft hat ein solches Modell jüngst als „schlank“ und „praxisnah“ beschrieben. Eine solche zentrale Einheit könnte bestehende Strukturen sinnvoll ergänzen, Informationen schneller zusammenführen und komplexe internationale Fälle gezielter bearbeiten.
+
+Bereits ein Team von etwa 50 speziell geschulten Fachkräften aus Zoll, Steuerfahndung und Polizei könnte hier einen erheblichen Unterschied machen. Die Kosten wären im Verhältnis zum möglichen Nutzen überschaubar: Selbst bei grob geschätzten jährlichen Ausgaben von rund 5 Millionen Euro entspräche dies nur wenigen Cent pro Bürgerin und Bürger.
+
+Aus meiner Sicht wäre eine solche Bundesstelle ein vergleichsweise kleiner, aber wirkungsvoller Schritt mit großem Potenzial. Sie könnte dazu beitragen, Steuermilliarden besser zu sichern, den Rechtsstaat zu stärken und das Vertrauen in die Handlungsfähigkeit des Staates zu erhöhen.
+
+Denn Steuerhinterziehung in großem Stil ist kein Kavaliersdelikt. Sie schadet der Allgemeinheit, untergräbt die Gerechtigkeit und belastet letztlich diejenigen, die sich an die Regeln halten.
+
+Ich bitte Sie daher, die Einrichtung einer zentralen, interdisziplinären Bundesstelle gegen international organisierte Steuerhinterziehung ernsthaft zu prüfen und zeitnah auf den Weg zu bringen.
+
+
+Mit freundlichen Grüßen</textarea>
+            <button class="secondary" type="button" onclick="copyField('body', 'E-Mail-Text kopiert.')">Text kopieren
+            </button>
+        </div>
+
+        <div id="status" class="status" role="status" aria-live="polite"></div>
+    </section>
+
+    <section class="legal" aria-label="Rechtliche Informationen">
+        <details>
+            <summary>Impressum</summary>
+            <div class="legal-content">
+                <p><strong>Angaben gemäß § 5 DDG</strong></p>
+
+                <p>
+                    Matthias Erche<br>
+                    Parkstraße 26<br>
+                    13187 Berlin<br>
+                    Deutschland
+                </p>
+
+                <p>
+                    E-Mail:
+                    <a href="mailto:ercmat@gmail.com">ercmat@gmail.com</a>
+                </p>
+            </div>
+        </details>
+
+        <details>
+            <summary>Datenschutzerklärung</summary>
+            <div class="legal-content">
+                <p>
+                    Diese Webseite dient dazu, eine vorbereitete E-Mail über das E-Mail-Programm der Nutzerinnen und Nutzer zu öffnen.
+                    Die Webseite selbst speichert keine eingegebenen Daten, verwendet kein Kontaktformular, setzt keine eigenen Cookies
+                    und nutzt kein Tracking.
+                </p>
+
+                <h3>Aufruf der Webseite</h3>
+
+                <p>
+                    Beim Aufruf dieser Webseite werden durch den Hosting-Anbieter technisch notwendige Zugriffsdaten verarbeitet,
+                    damit die Webseite ausgeliefert werden kann. Dazu können insbesondere IP-Adresse, Datum und Uhrzeit des Zugriffs,
+                    aufgerufene Datei, übertragene Datenmenge, Browsertyp, Betriebssystem und die zuvor besuchte Seite gehören.
+                    Diese Verarbeitung ist technisch erforderlich, um die Webseite bereitzustellen und die Sicherheit und Stabilität
+                    des Angebots zu gewährleisten.
+                </p>
+
+                <h3>E-Mail-Funktion</h3>
+
+                <p>
+                    Wenn der Button „Jetzt E-Mail öffnen“ genutzt wird, öffnet sich das E-Mail-Programm der Nutzerin oder des Nutzers
+                    mit einem vorbereiteten E-Mail-Entwurf. Die E-Mail wird nicht über diese Webseite versendet. Erst wenn die E-Mail
+                    im eigenen E-Mail-Programm abgesendet wird, werden die dort enthaltenen Daten an die angegebene Empfängeradresse
+                    übermittelt.
+                </p>
+
+                <h3>Verantwortliche Person</h3>
+
+                <p>
+                    Verantwortlich für diese Webseite ist:<br>
+                    Matthias Erche<br>
+                    Parkstraße 26<br>
+                    13187 Berlin<br>
+                    Deutschland<br>
+                    E-Mail:
+                    <a href="mailto:ercmat@gmail.com">ercmat@gmail.com</a>
+                </p>
+
+                <h3>Rechte betroffener Personen</h3>
+
+                <p>
+                    Betroffene Personen haben im Rahmen der gesetzlichen Voraussetzungen insbesondere Rechte auf Auskunft,
+                    Berichtigung, Löschung, Einschränkung der Verarbeitung, Widerspruch sowie Beschwerde bei einer zuständigen
+                    Datenschutzaufsichtsbehörde.
+                </p>
+            </div>
+        </details>
+    </section>
+
+    <p class="footer">
+        Diese Seite speichert keine Daten und versendet selbst keine E-Mails.
+    </p>
+</main>
+
+<script>
+    const recipient = document.getElementById('recipient');
+    const subject = document.getElementById('subject');
+    const body = document.getElementById('body');
+    const mailButton = document.getElementById('mailButton');
+    const status = document.getElementById('status');
+
+    function buildMailtoLink() {
+        const qs = `subject=${encodeURIComponent(subject.value)}` +
+                   `&body=${encodeURIComponent(body.value)}`;
+        return `mailto:${recipient.value}?${qs}`;
+    }
+
+    function updateMailButton() {
+        mailButton.href = buildMailtoLink();
+    }
+
+    async function copyText(text, message) {
+        try {
+            await navigator.clipboard.writeText(text);
+            showStatus(message);
+        } catch (error) {
+            showStatus('Kopieren hat nicht automatisch funktioniert. Bitte markiere den Text und kopiere ihn manuell.');
+        }
+    }
+
+    function copyField(id, message) {
+        const field = document.getElementById(id);
+        copyText(field.value, message);
+    }
+
+    function copyAll() {
+        const allText = `Empfänger: ${recipient.value}\nBetreff: ${subject.value}\n\n${body.value}`;
+        copyText(allText, 'Empfänger, Betreff und E-Mail-Text kopiert.');
+    }
+
+    function showStatus(message) {
+        status.textContent = message;
+        window.clearTimeout(showStatus.timeout);
+        showStatus.timeout = window.setTimeout(() => {
+            status.textContent = '';
+        }, 3500);
+    }
+
+    updateMailButton();
+</script>
+</body>
+</html>
