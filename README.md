@@ -21,6 +21,20 @@ Reine statische Seite, kein Build. Einfach `index.html` im Browser
 python3 -m http.server 8000
 ```
 
+## Tests
+
+End-to-End-Tests mit Playwright (mailto-URL, Copy-Buttons, Disclosures,
+externe Links und axe-core-A11y-Scan).
+
+```bash
+npm install
+npx playwright install chromium
+npm test
+```
+
+CI läuft via GitHub Actions auf jedem Push/PR
+(`.github/workflows/test.yml`).
+
 ## Deployment
 
 Wird via Netlify aus dem `main`-Branch deployed.

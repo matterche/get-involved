@@ -10,3 +10,8 @@ Thumbs.db
 .netlify/
 node_modules/
 dist/
+
+playwright-report/
+test-results/
+blob-report/
+playwright/.cache/
