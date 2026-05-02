@@ -8,7 +8,7 @@ test.beforeEach(async ({ page }) => {
 test('renders heading and descriptive title', async ({ page }) => {
   await expect(page).toHaveTitle(/Bundesfinanzminister/i);
   await expect(page.getByRole('heading', { level: 1 })).toHaveText(
-    /E-Mail an den Finanzminister/i,
+    /Stoppt organisierte Steuerhinterziehung/i,
   );
 });
 
