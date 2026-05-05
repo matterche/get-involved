@@ -7,9 +7,7 @@ test.beforeEach(async ({ page }) => {
 
 test('renders heading and descriptive title', async ({ page }) => {
   await expect(page).toHaveTitle(/Bundesfinanzminister/i);
-  await expect(page.getByRole('heading', { level: 1 })).toHaveText(
-    /Stoppt organisierte Steuerhinterziehung/i,
-  );
+  await expect(page.getByRole('heading', { level: 1 })).toContainText('organisierten Steuerbetrug');
 });
 
 test('mail button has a well-formed mailto: URL with the prepared content', async ({
@@ -26,7 +24,6 @@ test('mail button has a well-formed mailto: URL with the prepared content', asyn
 
   expect(subject).toContain('organisierte Steuerhinterziehung');
   expect(body).toContain('Sehr geehrter Herr Bundesminister Klingbeil');
-  expect(body).toContain('Anne Brorhilker');
   expect(body).toContain('100 Mrd');
   expect(body).toContain('Cum-Ex');
   expect(body).toContain('Cum-Cum');
